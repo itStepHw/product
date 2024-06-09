@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+</head>
+<body>
+    <form class="form" action="/add_product" method="post">
+        {% csrf_token %}
+        <input type="text" name="name">
+        <select name="categ_id">
+            {% for cat in categ %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="number" name="price" placeholder="цена">
+        <input type="text" name="slug" placeholder="slug">
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+
+    {% for product in products %}
+    <p>
+        {{ product.name }}
+        {{ product.price }}
+        <a href="{% url 'update_product' id=product.id %}">Изменить</a>
+        <a href="{% url 'delete_product' id=product.id %}">Удалить</a>
+    </p>
+
+    {% endfor %}
+</body>
+</html>

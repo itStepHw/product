@@ -1,0 +1,42 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+</head>
+<body>
+    <div>
+        <p>Поиск</p>
+        <form method="GET">
+            <input type="text" name="search">
+            <button type="submit">Найти</button>
+        </form>
+
+    </div>
+    <div>
+        <p>Добавить</p>
+    </div>
+
+
+
+    <form action="/add" method="post">
+        {% csrf_token %}
+        <input type="text" name="store_name">
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+
+    <div>
+        {% for shop in shops %}
+            <p class="paragraph">{{shop.id}}. {{shop.name}} <a href="{% url 'store' store_id=shop.id %}">Перейти</a></p>
+        {% endfor %}
+    </div>
+</body>
+</html>
